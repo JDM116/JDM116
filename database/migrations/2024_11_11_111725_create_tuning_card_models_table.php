@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('status')->default('false');
             $table->boolean('favorite')->default('false');
             $table->integer('amount');
+            $table->boolean('deleted')->default('false');
             $table->integer('cost');
             $table->timestamps();
         });
