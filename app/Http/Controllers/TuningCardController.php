@@ -32,14 +32,24 @@ class TuningCardController extends Controller
 }
 
     public function create(){
-        TuningCardModel::new([
+        TuningCardModel::create([
             'title'=> request('title') ,
             'image'=> request('image') ,
             'description'=> request('description') ,
             'amount'=> request('amount') ,
             'cost'=> request('cost') ,
+            'type'=> request('type'),
         ]);
-        return redirect('/');
+        return redirect('/admin');
 
+    }
+    public function show(){
+        $tunings = TuningCardModel::all();
+        return view('admin', compact('tunings'));
+    }
+
+    public function wheels(){
+        $wheels = TuningCardModel::where('type', 'Диски')->get();
+        return view('index', compact('wheels'));
     }
 }

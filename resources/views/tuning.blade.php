@@ -19,7 +19,7 @@
             padding: 55px;
         }
         
-
+        
         .tuningcard img{
             width: 249px;
             height: 249px;
@@ -28,13 +28,14 @@
             color:white;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* отступ между карточками */
+            gap: 30px; /* отступ между карточками */
             padding:50px;
     }
 
         .tuningcard {
             background-color: #828282;
             display: flex;
+            
             border: 1px solid #ccc; /* граница карточки */
             border-radius: 8px; /* закругленные углы */
             overflow: hidden; /* скрыть переполненные элементы */
@@ -66,32 +67,33 @@
     
 
     .sorting {
-        background-color: #f8f9fa;   /* Светлый фон для блока сортировки */
+        
+        background-color: #ffffff;   /* Светлый фон для блока сортировки */
         padding: 20px;                /* Отступы внутри блока */
-        border: 1px solid #dee2e6;    /* Граница вокруг блока */
-        border-radius: 8px;          /* Закругленные углы */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Немного тени */
-        text-align: center;           /* Центральное выравнивание текста */
+
+        text-align: center;    
+        font-size: 32px;         /* Центральное выравнивание текста */
     }
 
-    .sorting ui {
+    .sorting ul{
         list-style: none;             /* Убираем маркеры списка */
-        padding: 0;                  /* Убираем внутренние отступы */
+        padding: 0;  
+        display: flex;             /* Вертикальное выравнивание списка */
+        justify-content: space-around;
     }
 
     .sorting li {
-        margin: 10px 0;              /* Отступы между элементами списка */
+        margin: 10px 0;     
     }
 
     .sorting a {
-        text-decoration: none;        /* Убираем подчеркивание ссылок */
-        color: #007bff;              /* Цвет текста ссылок */
-        font-weight: bold;           /* Жирный шрифт для ссылок */
+        font-size: 32px;            /* Размер шрифта ссылок */
+        color: #000000;              /* Цвет текста ссылок */
         transition: color 0.3s;      /* Плавный переход цвета при наведении */
     }
 
     .sorting a:hover {
-        color: #0056b3;              /* Цвет ссылки при наведении */
+        color: #222222;              /* Цвет ссылки при наведении */
     }
 
     .sorting select {
@@ -107,10 +109,6 @@
             padding: 10px;            /* Уменьшаем отступы на мобильных устройствах */
         }
     }
-
-
-
-
     </style>
 </head>
 <body>
