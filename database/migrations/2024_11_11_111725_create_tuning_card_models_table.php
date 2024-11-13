@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('image');
             $table->string('description');
+            $table->string('type');
+            $table->boolean('status')->default('false');
+            $table->boolean('favorite')->default('false');
             $table->integer('amount');
             $table->integer('cost');
             $table->timestamps();
