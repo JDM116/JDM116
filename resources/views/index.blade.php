@@ -26,7 +26,6 @@
         }
         
         header {
-            
             color: white; /* Цвет текста можно настроить по желанию */
             
         }
@@ -41,7 +40,7 @@
             
         }
         a:hover{
-    text-shadow: 
+        text-shadow: 
         -1px -1px 0 #000,  
          1px -1px 0 #000,
         -1px  1px 0 #000,
@@ -109,6 +108,55 @@
             font-size: 30px;
             padding: 15px;
         }
+        .modal {
+            
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            color: white;
+            background-color:black;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            color: black;
+        }
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            
+        }
+        .modal-content form, h1, h2, h3, h4{
+            color:white;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button{
+            width: 100px;
+            height:20px;
+        }
+
 
                 
     </style>
@@ -118,9 +166,45 @@
         <p><a href="#">Наши салоны</a></p>
         <img src="{{ asset('storage/logo.svg') }}" alt="Логотип">
         <p>Контактный номер: 8 800 808-88-88</p>
+        <button id="regBtn">Регистрация</button>
+        <button id="loginBtn">Вход</button>
     </header>
+
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src = "{{ asset('storage/logo.svg') }}" alt="logo">
+            <h2>Регистрация</h2>
+            <form action ="/reg">
+                <label for="name">Имя пользователя:</label><br>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="password">Пароль:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" name="email"><br><br>
+                <input type="submit" value="Зарегистрироваться">
+            </form>
+        </div>
+    </div>
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="{{ asset('storage/logo.svg') }}" alt="logo">
+            <h2>Авторизация</h2>
+            <form id="authForm" action="/login" method="POST">
+                @csrf
+                <label for="auth_email">E-mail:</label><br>
+                <input type="email" id="auth_email" name="email" required><br><br>
+                <label for="auth_password">Пароль:</label><br>
+                <input type="password" id="auth_password" name="password" required><br><br>
+                <input type="submit" value="Войти">
+            </form>
+            <p id="authError" style="color: red; display: none;"></p>
+        </div>
+    </div>
     <main>
-        <a href="#">Смотреть в каталоге</a>
+        <a href="/tunings">Смотреть в каталоге</a>
     </main>
     <section class="about">
         <div class="txt">
@@ -146,6 +230,67 @@
             </div>
         @endforeach
     </section>
+    <script>
+        var regModal = document.getElementById("loginModal");
+        var authModal = document.getElementById("authModal");
+        var regBtn = document.getElementById("regBtn");
+        var loginBtn = document.getElementById("loginBtn");
+        var spans = document.getElementsByClassName("close");
     
+        regBtn.onclick = function() {
+            regModal.style.display = "block";
+        }
+    
+        loginBtn.onclick = function() {
+            authModal.style.display = "block";
+        }
+    
+        for (let span of spans) {
+            span.onclick = function() {
+                regModal.style.display = "none";
+                authModal.style.display = "none";
+            }
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == regModal) {
+                regModal.style.display = "none";
+            }
+            if (event.target == authModal) {
+                authModal.style.display = "none";
+            }
+        }
+    
+        // Валидация формы регистрации
+        document.querySelector("#loginModal form").onsubmit = function(e) {
+            e.preventDefault();
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+    
+            if (name.length < 3) {
+                alert("Имя пользователя должно содержать не менее 3 символов");
+                return false;
+            }
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert("Введите корректный email");
+                return false;
+            }
+            if (password.length < 6) {
+                alert("Пароль должен содержать не менее 6 символов");
+                return false;
+            }
+    
+            this.submit();
+        }
+    
+        document.getElementById("authForm").onsubmit = function(e) {
+            e.preventDefault();
+            var email = document.getElementById("auth_email").value;
+            var password = document.getElementById("auth_password").value;
+            alert("Авторизация успешна!");
+            authModal.style.display = "none";
+        }
+    </script>
 </body>
 </html>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\TuningCardModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TuningCardController extends Controller
 {
@@ -51,5 +53,26 @@ class TuningCardController extends Controller
     public function wheels(){
         $wheels = TuningCardModel::where('type', 'Диски')->get();
         return view('index', compact('wheels'));
+    }
+    public function register(Request $request){
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role'=>$request->role,
+        ]);
+
+       return redirect('/');
+    }
+    public function remove(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:tuning_card_models,id'
+        ]);
+
+        $tuning = TuningCardModel::findOrFail($request->id);
+        $tuning->delete();
+
+        return redirect()->back()->with('success', 'Товар успешно удален');
     }
 }
