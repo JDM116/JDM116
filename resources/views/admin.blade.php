@@ -48,6 +48,8 @@ label {
 /* Стили для полей ввода */
 input[type="text"],
 input[type="number"],
+input[type="password"],
+input[type="email"],
 select {
     width: 100%; /* Ширина полей ввода на всю ширину формы */
     padding: 10px;
@@ -73,6 +75,7 @@ input[type="submit"]:hover {
 
     </style>
 <body>
+    <a href="/tunings">На главную</a>
     <h1>Админ панель</h1>
 <h1>Добавление нового товара</h1>
 <form action="/admin/add" method="POST">
@@ -104,12 +107,54 @@ input[type="submit"]:hover {
 </form>
 
     <h1>Удаление товара</h1>
-    <form action="/admin/remove" method="POST">
+    <form action="{{ route('admin.remove') }}" method="POST">
         @csrf
         <label for="id">ID товара:</label><br>
         <input type="number" id="id" name="id" required><br><br> 
         <input type="submit" value="Удалить">
     </form>
+
+    {{-- @foreach ($tunings as $tuning)
+                    <p>Номер {{ $tuning->id }}:</p>
+                    <p class="title">Название: {{ $tuning->title }}</p>
+                    <form action="{{ route('admin.remove') }}" method="POST">
+                        @csrf
+                        <input type="submit" value="Удалить">
+                    </form>
+                    
+        @endforeach --}}
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <h2>Регистрация новых пользователей</h2>
+            <form action ="/reg">
+                <label for="name">Имя пользователя:</label><br>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="password">Пароль:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" name="email"><br><br>
+                <select name="role" id="role" onchange="filterByType(this.value)">
+                    <option value="">Выберите роль</option>
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                </select><br>
+                <input type="submit" value="Зарегистрировать">
+            </form>
         
 </body>
 </html>

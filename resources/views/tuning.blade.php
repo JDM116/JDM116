@@ -23,6 +23,9 @@
         .tuningcard img{
             width: 249px;
             height: 249px;
+            border-right: 2px solid #000000; 
+            margin: 30px;
+            padding: 15px;
         }
         .tuningcards {
             color:white;
@@ -30,19 +33,31 @@
             flex-wrap: wrap;
             gap: 30px; /* отступ между карточками */
             padding:50px;
+            
     }
 
         .tuningcard {
-            background-color: #828282;
+            color: black;
             display: flex;
-            
-            border: 1px solid #ccc; /* граница карточки */
+            border: 1px solid #000000; /* граница карточки */
             border-radius: 8px; /* закругленные углы */
             overflow: hidden; /* скрыть переполненные элементы */
             width: 710px; /* ширина карточки */
             flex: 1 1 calc(50% - 20px); /* макс. 2 карточки в строке с учетом отступа */
+            
     }
 
+        .tuningcard p{
+            font-size: 30px;
+        }
+
+    .title{
+        background-color: black;
+        opacity: 0.6;
+        border-radius: 10px;
+        color: white;
+        padding: 10px;
+    }
 
 
         .txt {
@@ -132,16 +147,13 @@
     <div class="tuningcards">
         @foreach ($tunings as $tuning)
             <div class="tuningcard">
-                <img src='{{ $tuning->image }}'>
+                <a href=""><img src='{{ $tuning->image }}'></a>
                 <div class="txt">
-                    <p>Название: {{ $tuning->title }}</p>
+                    <p class="title">Название: {{ $tuning->title }}</p>
                     <p>Тип: {{ $tuning->type }}</p>
                     <p>Количество: {{ $tuning->amount }} шт</p>
                     <p>Стоимость: {{ $tuning->cost }} ₽</p>
-                    <form action='#' method="POST">
-                        @csrf
-                        <button type="submit">Добавить в корзину</button>
-                    </form>
+                    
                 </div>
             </div>
         @endforeach
