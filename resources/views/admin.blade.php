@@ -72,6 +72,10 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #555; /* Более светлый фон на наведение */
 }
+svg{
+    width: 20px;
+    height: 20px;
+}
 
     </style>
 <body>
@@ -106,39 +110,77 @@ input[type="submit"]:hover {
     <input type="submit" value="Сохранить">
 </form>
 
-    <h1>Удаление товара</h1>
+<h1>Поиск товара</h1>
+<form action="{{ route('admin.search') }}" method="GET">
+    <input type="text" name="query" placeholder="Введите название товара" required>
+    <input type="submit" value="Поиск">
+</form>
+
+<h1>Удаление товара</h1>
+@foreach ($tunings as $tuning)
+    <p>Номер {{ $tuning->id }}:</p>
+    <p class="title">Название: {{ $tuning->title }}</p>
     <form action="{{ route('admin.remove') }}" method="POST">
         @csrf
-        <label for="id">ID товара:</label><br>
-        <input type="number" id="id" name="id" required><br><br> 
+        <input type="hidden" name="id" value="{{ $tuning->id }}">
         <input type="submit" value="Удалить">
     </form>
+@endforeach
 
-    {{-- @foreach ($tunings as $tuning)
-                    <p>Номер {{ $tuning->id }}:</p>
-                    <p class="title">Название: {{ $tuning->title }}</p>
-                    <form action="{{ route('admin.remove') }}" method="POST">
-                        @csrf
-                        <input type="submit" value="Удалить">
-                    </form>
-                    
-        @endforeach --}}
+{{ $tunings->links() }} <!-- Pagination links -->
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<h2>Редактирование товара</h2>
+@foreach ($tunings as $tuning)
+    <p>Номер {{ $tuning->id }}:</p>
+    <p class="title">Название: {{ $tuning->title }}</p>
+    <form action="{{ route('admin.update') }}" method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{ $tuning->id }}">
+        
+        <label for="title_{{ $tuning->id }}">Название товара:</label>
+        <input type="text" id="title_{{ $tuning->id }}" name="title" value="{{ $tuning->title }}" required><br>
+
+        <label for="description_{{ $tuning->id }}">Описание товара:</label>
+        <input type="text" id="description_{{ $tuning->id }}" name="description" value="{{ $tuning->description }}" required><br>
+
+        <label for="image_{{ $tuning->id }}">URL изображения:</label>
+        <input type="text" id="image_{{ $tuning->id }}" name="image" value="{{ $tuning->image }}" required><br>
+
+        <label for="amount_{{ $tuning->id }}">Количество:</label>
+        <input type="number" id="amount_{{ $tuning->id }}" name="amount" value="{{ $tuning->amount }}" required><br>
+
+        <label for="type_{{ $tuning->id }}">Тип товара:</label>
+        <select name="type" id="type_{{ $tuning->id }}">
+            <option value="Двигатель" {{ $tuning->type == 'Двигатель' ? 'selected' : '' }}>Двигатель</option>
+            <option value="Выхлопная система" {{ $tuning->type == 'Выхлопная система' ? 'selected' : '' }}>Выхлопная система</option>
+            <option value="Подвеска" {{ $tuning->type == 'Подвеска' ? 'selected' : '' }}>Подвеска</option>
+            <option value="Диски" {{ $tuning->type == 'Диски' ? 'selected' : '' }}>Диски</option>
+        </select><br>
+
+        <label for="cost_{{ $tuning->id }}">Цена:</label>
+        <input type="number" id="cost_{{ $tuning->id }}" name="cost" value="{{ $tuning->cost }}" required><br>
+
+        <input type="submit" value="Сохранить изменения">
+    </form>
+@endforeach
+
+{{ $tunings->links() }}
 
     <h2>Регистрация новых пользователей</h2>
             <form action ="/reg">
@@ -148,11 +190,8 @@ input[type="submit"]:hover {
                 <input type="password" id="password" name="password"><br><br>
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email"><br><br>
-                <select name="role" id="role" onchange="filterByType(this.value)">
-                    <option value="">Выберите роль</option>
-                    <option value="admin">admin</option>
-                    <option value="user">user</option>
-                </select><br>
+                <label for="text">Роль  :</label><br>
+                <input type = "text" id= "role" name="role">
                 <input type="submit" value="Зарегистрировать">
             </form>
         

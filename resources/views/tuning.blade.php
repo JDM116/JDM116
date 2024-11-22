@@ -130,6 +130,8 @@
     <header>
         <h1>ТЮНИНГ</h1>
     <header>
+    <a href = "/admin">Adminka</a>
+    <a href = "/">Главная</a>
     <div class="sorting">
         <ul>
             <li><a href="{{ route('tunings.index', ['sort_by' => 'title']) }}">Сортировать по названию</a></li>

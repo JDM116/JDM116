@@ -168,6 +168,7 @@
         <p>Контактный номер: 8 800 808-88-88</p>
         <button id="regBtn">Регистрация</button>
         <button id="loginBtn">Вход</button>
+        <a href = "/admin">Adminka</a>
     </header>
 
 
