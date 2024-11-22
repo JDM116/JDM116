@@ -45,10 +45,19 @@ class TuningCardController extends Controller
         return redirect('/admin');
 
     }
-    public function show(){
-        $tunings = TuningCardModel::all();
-        return view('admin', compact('tunings'));
-    }
+    public function show()
+{
+    $tunings = TuningCardModel::paginate(1); // Display 10 items per page
+    return view('admin', compact('tunings'));
+}
+
+public function search(Request $request)
+{
+    $query = $request->input('query');
+    $tunings = TuningCardModel::where('title', 'LIKE', "%{$query}%")->paginate(1);
+
+    return view('admin', compact('tunings'))->with('success', 'Результаты поиска');
+}
 
     public function wheels(){
         $wheels = TuningCardModel::where('type', 'Диски')->get();
@@ -66,13 +75,33 @@ class TuningCardController extends Controller
     }
     public function remove(Request $request)
     {
-        $request->validate([
-            'id' => 'required|integer|exists:tuning_card_models,id'
-        ]);
+        $tuning = TuningCardModel::find($request->id);
 
-        $tuning = TuningCardModel::findOrFail($request->id);
-        $tuning->delete();
+        if ($tuning) {
+            $tuning->delete();
+            return redirect()->back()->with('success', 'Товар успешно удален.');
+        }
 
-        return redirect()->back()->with('success', 'Товар успешно удален');
+        return redirect()->back()->withErrors(['Товар не найден.']);
     }
+    public function update(Request $request)
+    {
+        $tuning = TuningCardModel::find($request->id);
+
+        if ($tuning) {
+            $tuning->title = $request->title;
+            $tuning->description = $request->description;
+            $tuning->image = $request->image;
+            $tuning->amount = $request->amount;
+            $tuning->type = $request->type;
+            $tuning->cost = $request->cost;
+            $tuning->save();
+
+            return redirect()->back()->with('success', 'Товар успешно обновлен.');
+        }
+
+        return redirect()->back()->withErrors(['Товар не найден.']);
+    }
+   
+
 }
