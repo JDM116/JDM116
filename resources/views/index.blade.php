@@ -29,7 +29,7 @@
             color: white; /* Цвет текста можно настроить по желанию */
             
         }
-        a {
+       header a {
             
             border: rgb(255, 255, 255) 1px solid;
             padding: 10px;
@@ -39,7 +39,7 @@
             
             
         }
-        a:hover{
+       header a:hover{
         text-shadow: 
         -1px -1px 0 #000,  
          1px -1px 0 #000,
@@ -68,6 +68,9 @@
             
            
         }
+        .about img{
+            margin-top: 70px;
+        }
         .txt{
             margin: 40px;
             width: 400px;
@@ -93,7 +96,7 @@
             border: white 1px solid; /* Рисуем границу вокруг всего контейнера */
             width: 600px;
             height: 200px;
-            padding: 10px;
+            padding: 30px;
         }
 
         .wheel img {
@@ -124,9 +127,9 @@
         .modal-content {
             color: white;
             background-color:black;
+            opacity: 0.7;
             margin: 15% auto;
             padding: 20px;
-            border: 1px solid #888;
             width: 300px;
             color: black;
         }
@@ -222,11 +225,14 @@
     <section class="whells">
         @foreach($wheels as $item)
             <div class="wheel">
-                <img src="{{ $item->image }}" alt="{{ $item->title }}">
+                <a href="{{ route('tunings.more', ['id' => $item->id]) }}">
+                    <img src='{{ $item->image }}' alt="{{ $item->title }}">
+                </a>
                 <div>
-                    <h2>{{ $item->title }}</h2>
-                    <p>{{ $item->description }}</p>
-                    <p>{{ $item->cost }} ₽</p>
+                    <p>Название: {{ $item->title }}</p>
+                    <p>Тип: {{ $item->type }}</p>
+                    <p>Количество: {{ $item->amount }} шт</p>
+                    <p>Стоимость: {{ $item->cost }} ₽</p>
                 </div>
             </div>
         @endforeach

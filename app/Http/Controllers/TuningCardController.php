@@ -101,6 +101,14 @@ public function search(Request $request)
         }
 
         return redirect()->back()->withErrors(['Товар не найден.']);
+
+        
+
+    }
+        public function more($id)
+    {
+        $tuning = TuningCardModel::findOrFail($id);
+        return view('show', compact('tuning'));
     }
    
 
