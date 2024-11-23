@@ -16,7 +16,7 @@
             background-color:black;
             color:white;
             margin: 0;
-            padding: 55px;
+            padding: 8px;
         }
         
         
@@ -84,8 +84,8 @@
     .sorting {
         
         background-color: #ffffff;   /* Светлый фон для блока сортировки */
-        padding: 20px;                /* Отступы внутри блока */
-
+        padding: 5px;                /* Отступы внутри блока */
+        height: 50px;
         text-align: center;    
         font-size: 32px;         /* Центральное выравнивание текста */
     }
@@ -117,6 +117,7 @@
         border: 1px solid #ced4da;   /* Граница селекта */
         border-radius: 4px;          /* Закругленные углы */
     }
+    
 
     /* Мобильное разрешение */
     @media (max-width: 600px) {
@@ -130,10 +131,11 @@
     <header>
         <h1>ТЮНИНГ</h1>
     <header>
-    <a href = "/admin">Adminka</a>
-    <a href = "/">Главная</a>
+    
     <div class="sorting">
         <ul>
+            <li><a href = "/admin">Adminka</a></li>
+            <li><a href = "/">Главная</a></li>
             <li><a href="{{ route('tunings.index', ['sort_by' => 'title']) }}">Сортировать по названию</a></li>
             <li><a href="{{ route('tunings.index', ['sort_by' => 'cost']) }}">Сортировать по цене</a></li>
             <li>Тип
@@ -149,17 +151,19 @@
     <div class="tuningcards">
         @foreach ($tunings as $tuning)
             <div class="tuningcard">
-                <a href=""><img src='{{ $tuning->image }}'></a>
+                <a href="{{ route('tunings.more', ['id' => $tuning->id]) }}">
+                    <img src='{{ $tuning->image }}' alt="{{ $tuning->title }}">
+                </a>
                 <div class="txt">
                     <p class="title">Название: {{ $tuning->title }}</p>
                     <p>Тип: {{ $tuning->type }}</p>
                     <p>Количество: {{ $tuning->amount }} шт</p>
                     <p>Стоимость: {{ $tuning->cost }} ₽</p>
-                    
                 </div>
             </div>
         @endforeach
     </div>
+    
 
     <script>
         function filterByType(type) {
