@@ -110,6 +110,11 @@ public function search(Request $request)
         $tuning = TuningCardModel::findOrFail($id);
         return view('show', compact('tuning'));
     }
+
+        public function profile(){
+
+            return view('profile');
+        }
    
 
 }
