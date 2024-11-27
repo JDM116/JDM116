@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/resources/css/styles.css">
     <title>JDM116</title>
     <style>
         body, html {
@@ -12,12 +13,21 @@
             padding: auto;
             text-align: center;
             color: white;
+
         }
-        header {
+        header{
+             height:0px;
+        }
+        header ul{
             display: flex;
-            justify-content: space-around;
-            height:0px;
+            justify-content: space-between;
+           
             
+        }
+        header li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
         header img {
             width: 250px;
@@ -29,7 +39,7 @@
             color: white; /* Цвет текста можно настроить по желанию */
             
         }
-       header a {
+       header a, main a {
             
             border: rgb(255, 255, 255) 1px solid;
             padding: 10px;
@@ -39,7 +49,7 @@
             
             
         }
-       header a:hover{
+       header a:hover, main a:hover{
         text-shadow: 
         -1px -1px 0 #000,  
          1px -1px 0 #000,
@@ -158,20 +168,19 @@
         button{
             width: 100px;
             height:20px;
-        }
-
-
-                
+        }        
     </style>
 </head>
 <body>
     <header>
-        <p><a href="#">Наши салоны</a></p>
-        <img src="{{ asset('storage/logo.svg') }}" alt="Логотип">
-        <p>Контактный номер: 8 800 808-88-88</p>
-        <button id="regBtn">Регистрация</button>
-        <button id="loginBtn">Вход</button>
-        <a href = "/admin">Adminka</a>
+        <ul>
+            <li><p><a href="/map">Наши салоны</a></p> </li>
+            <li><img src="{{ asset('storage/logo.svg') }}" alt="Логотип"></li>
+            <li><p>Контактный номер: 8 800 808-88-88</p></li>
+            <li><button id="regBtn">Регистрация</button></li>
+            <li><button id="loginBtn">Вход</button></li>
+            <li><a href = "/admin">Adminka</a></li>
+        </ul>
     </header>
 
 
@@ -267,8 +276,7 @@
                 authModal.style.display = "none";
             }
         }
-    
-        // Валидация формы регистрации
+
         document.querySelector("#loginModal form").onsubmit = function(e) {
             e.preventDefault();
             var name = document.getElementById("name").value;

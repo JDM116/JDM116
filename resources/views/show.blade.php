@@ -53,6 +53,7 @@
     </style>
 </head>
 <body>
+  
     <div class="morecard">
         <div class="imgcards">
             <img src="{{ $tuning->image }}" alt="{{ $tuning->title }}">
@@ -69,8 +70,22 @@
             <p>Количество: {{ $tuning->amount }} шт</p>
             
             <p>Описание:{{ $tuning->description }}</p>
-            <a href="{{ url()->previous() }}" class="back-link">Назад к списку</a>
-            <a href="">В корзину</a>
+            <a href="/tunings" class="back-link">Назад к списку</a>
+            <form action="{{ route('cart.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id" value="{{ $tuning->id }}">
+                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+            </form>
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+            @session('status')
+                <div class="p-4 bg-green-100">
+                    {{ $value }}
+                </div>
+            @endsession
         </div>
 
         
