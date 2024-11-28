@@ -42,6 +42,16 @@ class TuningCardModelSeeder extends Seeder
                 'amount' => 8,
                 'cost' => 75000
             ],
+            [
+                'title' => 'Диски',
+                'image' => 'https://a.d-cd.net/YQAAAgE5UeA-1920.jpg',
+                'description' => 'вфыафыафыафыаыф',
+                'type' => 'Диски',
+                'status' => false,
+                'favorite' => true,
+                'amount' => 1,
+                'cost' => 750500
+            ],
         ];
 
         foreach ($tuningCards as $card) {
