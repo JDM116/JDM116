@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\AuthController;
 
+
 Route::get('/map', [MapController::class, 'show']);
 
 

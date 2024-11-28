@@ -20,6 +20,7 @@
         }
         header ul{
             display: flex;
+
             justify-content: space-around;
            
             
@@ -177,6 +178,7 @@
             <li><p><a href="/map">Наши салоны</a></p> </li>
             <li><img src="{{ asset('storage/logo.svg') }}" alt="Логотип"></li>
             <li><p>Контактный номер: 8 800 808-88-88</p></li>
+
             <li></li>
             
             @if(Auth::check())
@@ -187,6 +189,7 @@
             <li><button id="loginBtn">Вход</button></li>
             
             @endif
+
         </ul>
     </header>
 

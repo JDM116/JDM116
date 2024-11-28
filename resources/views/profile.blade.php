@@ -30,8 +30,10 @@
                 width: 400px;
                 height: 100%;
                 text-align: center;
+
                 
                 
+
 
             }
             ul{
@@ -48,7 +50,9 @@
                 color: white;
                 text-decoration: none;
             }
+
            .navigation img{
+
                 border-radius: 50px;
                 width:100px;
                 height: 100px;
@@ -65,6 +69,7 @@
         <div class="navigation">
             <ul>
                 <li><img src="https://w7.pngwing.com/pngs/950/767/png-transparent-body-jewellery-line-design-white-user-icon-svg.png">
+
                 <li><p>Привет: {{ Auth::user()->name }}</p></li>
                 <li><a href="#">Редактировать профиль</a><br></li>
                 <li><a href="/">На главную</a><br></li>
