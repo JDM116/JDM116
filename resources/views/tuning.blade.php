@@ -134,7 +134,6 @@
     
     <div class="sorting">
         <ul>
-            <li><a href = "/admin">Adminka</a></li>
             <li><a href = "/">Главная</a></li>
             <li><a href="{{ route('tunings.index', ['sort_by' => 'title']) }}">Сортировать по названию</a></li>
             <li><a href="{{ route('tunings.index', ['sort_by' => 'cost']) }}">Сортировать по цене</a></li>

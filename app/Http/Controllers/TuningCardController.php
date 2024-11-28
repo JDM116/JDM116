@@ -113,7 +113,10 @@ public function search(Request $request)
 
         public function profile(){
 
-            return view('profile');
+            $favorite = TuningCardModel::where('favorite', true)->get();
+            $user = User::All();
+            return view('profile', compact('favorite'), compact('user'));
+
         }
    
 

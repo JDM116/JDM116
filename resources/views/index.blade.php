@@ -20,7 +20,8 @@
         }
         header ul{
             display: flex;
-            justify-content: space-between;
+
+            justify-content: space-around;
            
             
         }
@@ -177,9 +178,18 @@
             <li><p><a href="/map">Наши салоны</a></p> </li>
             <li><img src="{{ asset('storage/logo.svg') }}" alt="Логотип"></li>
             <li><p>Контактный номер: 8 800 808-88-88</p></li>
-            <li><button id="regBtn">Регистрация</button></li>
-            <li><button id="loginBtn">Вход</button></li>
+
+            <li></li>
+            
+            @if(Auth::check())
+            
+            <li><a href="/profile">Профиль</a></li>
             <li><a href = "/admin">Adminka</a></li>
+            @else
+            <li><button id="loginBtn">Вход</button></li>
+            
+            @endif
+
         </ul>
     </header>
 
@@ -189,15 +199,19 @@
             <span class="close">&times;</span>
             <img src = "{{ asset('storage/logo.svg') }}" alt="logo">
             <h2>Регистрация</h2>
-            <form action ="/reg">
-                <label for="name">Имя пользователя:</label><br>
-                <input type="text" id="name" name="name"><br><br>
-                <label for="password">Пароль:</label><br>
-                <input type="password" id="password" name="password"><br><br>
-                <label for="email">E-mail:</label><br>
-                <input type="email" id="email" name="email"><br><br>
-                <input type="submit" value="Зарегистрироваться">
-            </form>
+            <form action ="/register" method="POST">
+                <form action="/register" method="POST">
+                    @csrf
+                    <label for="name">Имя пользователя:</label><br>
+                    <input type="text" id="name" name="name"><br><br>
+                    <label for="email">E-mail:</label><br>
+                    <input type="email" id="email" name="email"><br><br>
+                    <label for="password">Пароль:</label><br>
+                    <input type="password" id="password" name="password"><br><br>
+                    <label for="password_confirmation">Подтверждение пароля:</label><br>
+                    <input type="password" id="password_confirmation" name="password_confirmation"><br><br>
+                    <input type="submit" value="Зарегистрироваться">
+                </form>
         </div>
     </div>
     <div id="authModal" class="modal">
@@ -205,14 +219,15 @@
             <span class="close">&times;</span>
             <img src="{{ asset('storage/logo.svg') }}" alt="logo">
             <h2>Авторизация</h2>
-            <form id="authForm" action="/login" method="POST">
+            <form action="/login" method="POST">
                 @csrf
-                <label for="auth_email">E-mail:</label><br>
-                <input type="email" id="auth_email" name="email" required><br><br>
-                <label for="auth_password">Пароль:</label><br>
-                <input type="password" id="auth_password" name="password" required><br><br>
-                <input type="submit" value="Войти">
-            </form>
+            <label for="auth_email">E-mail:</label><br>
+            <input type="email" id="auth_email" name="email" required><br><br>
+            <label for="auth_password">Пароль:</label><br>
+            <input type="password" id="auth_password" name="password" required><br><br>
+            <input type="submit" value="Войти">
+        </form>
+        <button id="regBtn">Регистрация</button>
             <p id="authError" style="color: red; display: none;"></p>
         </div>
     </div>
@@ -255,6 +270,7 @@
     
         regBtn.onclick = function() {
             regModal.style.display = "block";
+            authModal.style.display = "none";
         }
     
         loginBtn.onclick = function() {
@@ -306,6 +322,7 @@
             alert("Авторизация успешна!");
             authModal.style.display = "none";
         }
+        
     </script>
 </body>
 </html>

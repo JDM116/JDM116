@@ -5,6 +5,8 @@ use App\Http\Controllers\TuningCardController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/map', [MapController::class, 'show']);
 
@@ -23,6 +25,11 @@ Route::get('/tuning/{id}', [TuningCardController::class, 'more'])->name('tunings
 Route::post('/admin/remove', [TuningCardController::class, 'remove'])->name('admin.remove');
 Route::post('/admin/update', [TuningCardController::class, 'update'])->name('admin.update');
 Route::get('/admin/search', [TuningCardController::class, 'search'])->name('admin.search');
-Route::post("/reg", [TuningCardController::class, "register"]);
-Route::get("/reg", [TuningCardController::class, "register"]);
+
+
+Route::get('/register', [TuningCardController::class, "wheels"]);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [TuningCardController::class, "wheels"]);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
