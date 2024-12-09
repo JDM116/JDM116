@@ -15,7 +15,6 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 
-Route::get('/profile', [TuningCardController::class, 'profile']);
 
 Route::get("/", [TuningCardController::class, "wheels"])->name("wheels");
 Route::get("/tunings", [TuningCardController::class, "index"])->name("tunings.index");
@@ -32,4 +31,5 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [TuningCardController::class, "wheels"]);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/profile', [TuningCardController::class, 'profile']);
 
