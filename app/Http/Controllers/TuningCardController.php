@@ -71,7 +71,7 @@ public function search(Request $request)
             'role'=>$request->role,
         ]);
 
-       return redirect('/');
+       return redirect('/admin');
     }
     public function remove(Request $request)
     {

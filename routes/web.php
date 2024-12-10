@@ -18,18 +18,22 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 Route::get("/", [TuningCardController::class, "wheels"])->name("wheels");
 Route::get("/tunings", [TuningCardController::class, "index"])->name("tunings.index");
-Route::get("/admin", [TuningCardController::class, "show"])->name("tunings.show");
-Route::post("/admin/add", [TuningCardController::class, "create"])->name("tunings.add");
-Route::get('/tuning/{id}', [TuningCardController::class, 'more'])->name('tunings.more');
-Route::post('/admin/remove', [TuningCardController::class, 'remove'])->name('admin.remove');
-Route::post('/admin/update', [TuningCardController::class, 'update'])->name('admin.update');
-Route::get('/admin/search', [TuningCardController::class, 'search'])->name('admin.search');
+Route::get("/tunings/{id}", [TuningCardController::class, "more"])->name("tunings.more");
+
+    Route::middleware(['auth'])->group(function () {
+    Route::get("/admin", [TuningCardController::class, "show"])->name('admin.dashboard');
+    Route::post("/admin/add", [TuningCardController::class, "create"])->name("tunings.add");
+    Route::post('/admin/remove', [TuningCardController::class, 'remove'])->name('admin.remove');
+    Route::post('/admin/update', [TuningCardController::class, 'update'])->name('admin.update');
+    Route::get('/admin/search', [TuningCardController::class, 'search'])->name('admin.search');
+});
 
 
-Route::get('/register', [TuningCardController::class, "wheels"]);
+
+Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [TuningCardController::class, "wheels"]);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/profile', [TuningCardController::class, 'profile']);
+Route::get('/profile', [TuningCardController::class, 'profile'])->name('profile');
 

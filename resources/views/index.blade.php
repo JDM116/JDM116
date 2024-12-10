@@ -230,14 +230,15 @@
 
             <li></li>
 
-            @if(Auth::check())
-
-            <li><a href="/profile">Профиль</a></li>
-            <li><a href = "/admin">Adminka</a></li>
-            @else
-            <li><button id="loginBtn">Вход</button></li>
-
-            @endif
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><button id="loginBtn">Вход</button></li>
+    @endif
 
         </ul>
     </header>
