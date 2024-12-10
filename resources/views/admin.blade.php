@@ -79,10 +79,25 @@ svg{
 
     </style>
 <body>
-    <a href="/tunings">На главную</a>
+    <a href="/">На главную</a>
     <h1>Админ панель</h1>
-<h1>Добавление нового товара</h1>
-<form action="/admin/add" method="POST">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+    <h1>Добавление нового товара</h1>
+    <form action="/admin/add" method="POST">
     @csrf
     <label for="title">Название товара:</label><br>
     <input type="text" id="title" name="title" required><br><br>
@@ -127,23 +142,9 @@ svg{
     </form>
 @endforeach
 
-{{ $tunings->links() }} <!-- Pagination links -->
+{{ $tunings->links() }}
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <h2>Редактирование товара</h2>
 @foreach ($tunings as $tuning)
@@ -183,11 +184,13 @@ svg{
 {{ $tunings->links() }}
 
     <h2>Регистрация новых пользователей</h2>
-            <form action ="/reg">
+            <form action ="/register">
                 <label for="name">Имя пользователя:</label><br>
                 <input type="text" id="name" name="name"><br><br>
                 <label for="password">Пароль:</label><br>
                 <input type="password" id="password" name="password"><br><br>
+                <label for="password_confirmation">Подтверждение пароля:</label><br>
+                <input type="password" id="password_confirmation" name="password_confirmation"><br><br>
                 <label for="email">E-mail:</label><br>
                 <input type="email" id="email" name="email"><br><br>
                 <label for="text">Роль  :</label><br>

@@ -22,8 +22,8 @@
             display: flex;
 
             justify-content: space-around;
-           
-            
+
+
         }
         header li {
             list-style-type: none;
@@ -33,31 +33,31 @@
         header img {
             width: 250px;
             height: 100px;
-            
+
         }
-        
+
         header {
             color: white; /* Цвет текста можно настроить по желанию */
-            
+
         }
        header a, main a {
-            
+
             border: rgb(255, 255, 255) 1px solid;
             padding: 10px;
             text-decoration: none;
             color: white;
             font-size: 24px;
-            
-            
+
+
         }
        header a:hover, main a:hover{
-        text-shadow: 
-        -1px -1px 0 #000,  
+        text-shadow:
+        -1px -1px 0 #000,
          1px -1px 0 #000,
         -1px  1px 0 #000,
          1px  1px 0 #000; /* Цвет обводки */
         background-color: white;
-            
+
         }
         main{
             background-image: url('{{ asset('storage/main.jpg') }}');
@@ -70,14 +70,14 @@
             height: 1080px;
             object-fit: cover;
         }
-       
+
         .about{
             margin-top: 40px;
             display: flex;
             justify-content: center;
             font-size: 30px;
-            
-           
+
+
         }
         .about img{
             margin-top: 70px;
@@ -123,7 +123,7 @@
             padding: 15px;
         }
         .modal {
-            
+
             display: none;
             position: fixed;
             z-index: 1;
@@ -147,7 +147,7 @@
         .modal-content img {
             max-width: 100%;
             height: auto;
-            
+
         }
         .modal-content form, h1, h2, h3, h4{
             color:white;
@@ -169,7 +169,56 @@
         button{
             width: 100px;
             height:20px;
-        }        
+        }
+        .slider-container {
+        position: relative;
+        max-width: 800px;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        min-width: 100%;
+    }
+
+    .slide img {
+        width: 100%;
+        height: auto;
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    .prev {
+        left: 0;
+        border-radius: 3px 3px 0 0;
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.9);
+    }
     </style>
 </head>
 <body>
@@ -180,15 +229,16 @@
             <li><p>Контактный номер: 8 800 808-88-88</p></li>
 
             <li></li>
-            
-            @if(Auth::check())
-            
-            <li><a href="/profile">Профиль</a></li>
-            <li><a href = "/admin">Adminka</a></li>
-            @else
-            <li><button id="loginBtn">Вход</button></li>
-            
-            @endif
+
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><button id="loginBtn">Вход</button></li>
+    @endif
 
         </ul>
     </header>
@@ -236,9 +286,9 @@
     </main>
     <section class="about">
         <div class="txt">
-            <p>JDM расшифровывается как 
+            <p>JDM расшифровывается как
                 "Japanese Domestic Market"
-                или же "японский внутренний рынок". 
+                или же "японский внутренний рынок".
                 Так называется культура владения истинно японскими автомобилями, часто тюнингованными, а владельцев такой техники и называют как раз JDMщик</p>
         </div>
         <div class="img">
@@ -261,29 +311,88 @@
             </div>
         @endforeach
     </section>
+    <section class="constraction">
+        <h1>Наши проекты</h1>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="{{ asset('storage/1.png') }}" alt="Проект 1">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/2.jpg') }}" alt="Проект 2">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/3.jpg') }}" alt="Проект 3">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/4.jpg') }}" alt="Проект 4">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/5.jpg') }}" alt="Проект 5">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/6.jpg') }}" alt="Проект 6">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/7.jpg') }}" alt="Проект 7">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/8.jpg') }}" alt="Проект 8">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('storage/9.jpg') }}" alt="Проект 9">
+                </div>
+
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+
+    </section>
     <script>
+        let slideIndex = 0;
+        const slides = document.querySelector('.slider');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function showSlides() {
+            slides.style.transform = `translateX(${-slideIndex * 100}%)`;
+        }
+
+        function plusSlides(n) {
+            slideIndex += n;
+            if (slideIndex < 0) {
+                slideIndex = totalSlides - 1;
+            } else if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            showSlides();
+        }
+
+        showSlides();
+
         var regModal = document.getElementById("loginModal");
         var authModal = document.getElementById("authModal");
         var regBtn = document.getElementById("regBtn");
         var loginBtn = document.getElementById("loginBtn");
         var spans = document.getElementsByClassName("close");
-    
+
         regBtn.onclick = function() {
             regModal.style.display = "block";
             authModal.style.display = "none";
         }
-    
+
         loginBtn.onclick = function() {
             authModal.style.display = "block";
         }
-    
+
         for (let span of spans) {
             span.onclick = function() {
                 regModal.style.display = "none";
                 authModal.style.display = "none";
             }
         }
-    
+
         window.onclick = function(event) {
             if (event.target == regModal) {
                 regModal.style.display = "none";
@@ -298,7 +407,7 @@
             var name = document.getElementById("name").value;
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
-    
+
             if (name.length < 3) {
                 alert("Имя пользователя должно содержать не менее 3 символов");
                 return false;
@@ -311,10 +420,10 @@
                 alert("Пароль должен содержать не менее 6 символов");
                 return false;
             }
-    
+
             this.submit();
         }
-    
+
         document.getElementById("authForm").onsubmit = function(e) {
             e.preventDefault();
             var email = document.getElementById("auth_email").value;
@@ -322,7 +431,7 @@
             alert("Авторизация успешна!");
             authModal.style.display = "none";
         }
-        
+
     </script>
 </body>
 </html>
