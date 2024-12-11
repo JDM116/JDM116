@@ -17,18 +17,19 @@
         }
         header{
              height:0px;
+             
         }
         header ul{
             display: flex;
-
             justify-content: space-around;
+            flex-wrap:wrap;
 
 
         }
         header li {
             list-style-type: none;
-            margin: 0;
-            padding: 0;
+            margin-top:30px;
+            
         }
         header img {
             width: 250px;
@@ -76,6 +77,7 @@
             display: flex;
             justify-content: center;
             font-size: 30px;
+            flex-wrap:wrap;
 
 
         }
@@ -175,6 +177,7 @@
         max-width: 800px;
         margin: auto;
         overflow: hidden;
+        margin-top:50px;
     }
 
     .slider {
@@ -219,27 +222,45 @@
     .prev:hover, .next:hover {
         background-color: rgba(0,0,0,0.9);
     }
+    footer{
+        border-top: 3px solid white;
+    }
+    footer ul{
+        display:flex;
+        justify-content: center;
+        
+    }
+    footer li{
+        
+        list-style: none;
+        padding:20px;
+    }
+    footer li a {
+        text-decoration:none;
+        color:white;
+    }
+    
     </style>
 </head>
 <body>
     <header>
         <ul>
-            <li><p><a href="/map">Наши салоны</a></p> </li>
             <li><img src="{{ asset('storage/logo.svg') }}" alt="Логотип"></li>
-            <li><p>Контактный номер: 8 800 808-88-88</p></li>
-
-            <li></li>
+            <li><a href="/map">Наши салоны</a></li>
+            <li><a href="/tunings">Каталог</a></li>
+            
 
     @if(Auth::check())
     @if(Auth::user()->isAdmin())
         <li><a href="{{ route('profile') }}">Профиль</a></li>
+        <li><a href="{{ route('admin.dashboard') }}">Админ - панель</a></li>
     @else
         <li><a href="{{ route('profile') }}">Профиль</a></li>
     @endif
     @else
-        <li><button id="loginBtn">Вход</button></li>
+        <li><a id="loginBtn">Вход</a></li>
     @endif
-
+        <li><p>Контактный номер: 8 800 808-88-88</p></li>
         </ul>
     </header>
 
@@ -312,54 +333,94 @@
         @endforeach
     </section>
     <section class="constraction">
-        <h1>Наши проекты</h1>
-        <div class="slider-container">
-            <div class="slider">
-                <div class="slide">
-                    <img src="{{ asset('storage/1.png') }}" alt="Проект 1">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/2.jpg') }}" alt="Проект 2">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/3.jpg') }}" alt="Проект 3">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/4.jpg') }}" alt="Проект 4">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/5.jpg') }}" alt="Проект 5">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/6.jpg') }}" alt="Проект 6">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/7.jpg') }}" alt="Проект 7">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/8.jpg') }}" alt="Проект 8">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('storage/9.jpg') }}" alt="Проект 9">
-                </div>
-
+    <h1>Наши проекты</h1>
+    <div class="car-selector">
+        <button onclick="showCar('mazda')">Mazda</button>
+        <button onclick="showCar('toyota')">Toyota</button>
+    </div>
+    <div class="slider-container">
+        <div class="slider" id="mazdaSlider">
+            <div class="slide">
+                <img src="{{ asset('storage/mazda/1.jpg') }}" alt="Mazda Проект 1">
             </div>
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="slide">
+                <img src="{{ asset('storage/mazda/2.jpg') }}" alt="Mazda Проект 2">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/mazda/3.jpg') }}" alt="Mazda Проект 3">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/mazda/4.jpg') }}" alt="Mazda Проект 4">
+            </div>
         </div>
+        <div class="slider" id="toyotaSlider" style="display: none;">
+            <div class="slide">
+                <img src="{{ asset('storage/toyota/1.png') }}" alt="Toyota Проект 1">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/toyota/2.png') }}" alt="Toyota Проект 2">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/toyota/3.png') }}" alt="Toyota Проект 3">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/toyota/4.png') }}" alt="Toyota Проект 4">
+            </div>
+        </div>
+        <div class="slider" id="nissanSlider" style="display: none;">
+            <div class="slide">
+                <img src="{{ asset('storage/nissan/1.jpg') }}" alt="Nissan Проект 1">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/nissan/2.jpg') }}" alt="Nissan Проект 2">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/nissan/3.jpg') }}" alt="Nissan Проект 3">
+            </div>
+            <div class="slide">
+                <img src="{{ asset('storage/nissan/4.jpg') }}" alt="Nissan Проект 4">
+            </div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+</section>
+<footer>
+        <ul>
+            <li><a href="/map">Наши салоны</a></li>
+            <li><a href="/tunings">Каталог</a></li>
+            
 
-
-    </section>
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+        <li><a href="{{ route('admin.dashboard') }}">Админ - панель</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><a id="loginBtn">Вход</a></li>
+    @endif
+        </ul>
+</footer>
     <script>
-        let slideIndex = 0;
-        const slides = document.querySelector('.slider');
-        const totalSlides = document.querySelectorAll('.slide').length;
+        let currentCar = 'mazda';
+
+        function showCar(car) {
+            document.getElementById(currentCar + 'Slider').style.display = 'none';
+            document.getElementById(car + 'Slider').style.display = 'flex';
+            currentCar = car;
+            slideIndex = 0;
+            showSlides();
+        }
 
         function showSlides() {
+            const slides = document.querySelector(`#${currentCar}Slider`);
             slides.style.transform = `translateX(${-slideIndex * 100}%)`;
         }
 
         function plusSlides(n) {
+            const totalSlides = document.querySelectorAll(`#${currentCar}Slider .slide`).length;
             slideIndex += n;
             if (slideIndex < 0) {
                 slideIndex = totalSlides - 1;
@@ -369,7 +430,7 @@
             showSlides();
         }
 
-        showSlides();
+        showCar('mazda'); // Показываем Mazda по умолчанию
 
         var regModal = document.getElementById("loginModal");
         var authModal = document.getElementById("authModal");

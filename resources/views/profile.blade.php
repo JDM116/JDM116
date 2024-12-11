@@ -14,6 +14,15 @@
                 padding: 0;
                 margin: 0;
             }
+            .favorite img{
+                height:250px;
+                width: 250px;
+                
+            }
+            .favorite .tuning{
+                border:1px solid white;
+                width: 400px;
+            }
             .profile{
                 display: flex;
                 justify-content: space-around;
@@ -57,6 +66,24 @@
                 width:100px;
                 height: 100px;
             }
+            footer{
+        margin-top:30px;
+        border-top: 3px solid white;
+    }
+    footer ul{
+        display:flex;
+        justify-content: center;
+        
+    }
+    footer li{
+        
+        list-style: none;
+        padding:20px;
+    }
+    footer li a {
+        text-decoration:none;
+        color:white;
+    }
         </style>
     <header>
         <ul>
@@ -102,5 +129,23 @@
             <a href="/tunings">В каталог</a>
         </div>
     </section>
+    <footer>
+        <ul>
+            <li><a href="/map">Наши салоны</a></li>
+            <li><a href="/tunings">Каталог</a></li>
+            
+
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+        <li><a href="{{ route('admin.dashboard') }}">Админ - панель</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><a id="loginBtn">Вход</a></li>
+    @endif
+        </ul>
+</footer>
 </body>
 </html>

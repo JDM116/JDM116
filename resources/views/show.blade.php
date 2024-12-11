@@ -49,6 +49,25 @@
             font-size: 40px;
             
         }
+        footer{
+        margin-top:30px;
+        border-top: 3px solid black;
+        }
+        footer ul{
+            display:flex;
+            justify-content: center;
+            
+        }
+        footer li{
+            
+            list-style: none;
+            padding:20px;
+        }
+        footer li a {
+            text-decoration:none;
+            color:black;
+        }
+    
 
     </style>
 </head>
@@ -90,5 +109,23 @@
 
         
     </div>
+    <footer>
+        <ul>
+            <li><a href="/map">Наши салоны</a></li>
+            <li><a href="/tunings">Каталог</a></li>
+            
+
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+        <li><a href="{{ route('admin.dashboard') }}">Админ - панель</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><a id="loginBtn">Вход</a></li>
+    @endif
+        </ul>
+</footer>
 </body>
 </html>

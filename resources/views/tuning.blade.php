@@ -44,6 +44,7 @@
             overflow: hidden; /* скрыть переполненные элементы */
             width: 710px; /* ширина карточки */
             flex: 1 1 calc(50% - 20px); /* макс. 2 карточки в строке с учетом отступа */
+            flex-wrap:wrap;
             
     }
 
@@ -85,7 +86,7 @@
         
         background-color: #ffffff;   /* Светлый фон для блока сортировки */
         padding: 5px;                /* Отступы внутри блока */
-        height: 50px;
+        height: 100px;
         text-align: center;    
         font-size: 32px;         /* Центральное выравнивание текста */
     }
@@ -95,6 +96,7 @@
         padding: 0;  
         display: flex;             /* Вертикальное выравнивание списка */
         justify-content: space-around;
+        flex-wrap:wrap;
     }
 
     .sorting li {
@@ -116,6 +118,24 @@
         padding: 5px;                /* Отступы внутри селекта */
         border: 1px solid #ced4da;   /* Граница селекта */
         border-radius: 4px;          /* Закругленные углы */
+    }
+    footer{
+        margin-top:30px;
+        border-top: 3px solid black;
+    }
+    footer ul{
+        display:flex;
+        justify-content: center;
+        
+    }
+    footer li{
+        
+        list-style: none;
+        padding:20px;
+    }
+    footer li a {
+        text-decoration:none;
+        color:black;
     }
     
 
@@ -162,7 +182,24 @@
             </div>
         @endforeach
     </div>
-    
+    <footer>
+        <ul>
+            <li><a href="/map">Наши салоны</a></li>
+            <li><a href="/tunings">Каталог</a></li>
+            
+
+    @if(Auth::check())
+    @if(Auth::user()->isAdmin())
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+        <li><a href="{{ route('admin.dashboard') }}">Админ - панель</a></li>
+    @else
+        <li><a href="{{ route('profile') }}">Профиль</a></li>
+    @endif
+    @else
+        <li><a id="loginBtn">Вход</a></li>
+    @endif
+        </ul>
+</footer>
 
     <script>
         function filterByType(type) {
@@ -171,5 +208,6 @@
             window.location.href = url.toString(); // Перенаправляем на обновленный URL
         }
     </script>
+
 </body>
 </html>
