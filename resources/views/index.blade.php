@@ -41,7 +41,7 @@
             color: white; /* Цвет текста можно настроить по желанию */
 
         }
-       header a, main a {
+       header li a, main a {
 
             border: rgb(255, 255, 255) 1px solid;
             padding: 10px;
@@ -51,7 +51,7 @@
 
 
         }
-       header a:hover, main a:hover{
+       header li a:hover, main a:hover{
         text-shadow:
         -1px -1px 0 #000,
          1px -1px 0 #000,
@@ -239,7 +239,25 @@
         text-decoration:none;
         color:white;
     }
-    
+    .cart{
+        width: 50px;
+        height: 50px;
+    }
+    #disclaimerModal {
+        display: block;
+        
+    }
+
+    #disclaimerModal .modal-content {
+        background-color: #f1f1f1;
+        color: black;
+        font-size:40px;
+        width: 500px;
+    }
+
+    #disclaimerModal h2 {
+        color: black;
+    }
     </style>
 </head>
 <body>
@@ -261,9 +279,18 @@
         <li><a id="loginBtn">Вход</a></li>
     @endif
         <li><p>Контактный номер: 8 800 808-88-88</p></li>
+        
         </ul>
+        
     </header>
 
+    <div id="disclaimerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Уведомление</h2>
+        <p>Этот сайт создан исключительно в учебных целях.</p>
+    </div>
+    </div>
 
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -437,7 +464,22 @@
         var regBtn = document.getElementById("regBtn");
         var loginBtn = document.getElementById("loginBtn");
         var spans = document.getElementsByClassName("close");
+        window.onload = function() {
+        var disclaimerModal = document.getElementById("disclaimerModal");
+        var disclaimerSpan = disclaimerModal.getElementsByClassName("close")[0];
 
+        disclaimerModal.style.display = "block";
+
+        disclaimerSpan.onclick = function() {
+            disclaimerModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == disclaimerModal) {
+                disclaimerModal.style.display = "none";
+            }
+        }
+    }
         regBtn.onclick = function() {
             regModal.style.display = "block";
             authModal.style.display = "none";

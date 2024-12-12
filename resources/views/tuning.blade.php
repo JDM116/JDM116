@@ -150,6 +150,7 @@
 <body>
     <header>
         <h1>ТЮНИНГ</h1>
+        
     <header>
     
     <div class="sorting">
@@ -165,6 +166,7 @@
                     <option value="Подвеска">Подвеска</option>
                 </select>
             </li>
+            <a href="/cart"><img class="cart" src="{{ asset('storage/cart2.svg') }}" alt="Cart"></a>
         </ul>
     </div>
     <div class="tuningcards">
