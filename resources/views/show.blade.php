@@ -13,10 +13,12 @@
             width: 1000px;
             display: flex;
             margin:auto;
+            margin-left: 10px;
             padding: 30px;
-            margin-top: 200px; 
+            padding-right: 800px;
+            margin-top: 10px; 
             font-size: 30px;
-            border: 2px solid black;
+            border: 1px solid black;
             border-radius: 10px;
         }
         .details{
@@ -25,7 +27,6 @@
         img{
             width: 42.1%;
             height: 422px;
-            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
         }
         .imgcards img{
             width: 100px;
@@ -40,16 +41,53 @@
             color: red;
             font-size: 35px; 
         }
-        p, .back-link{
-            margin: 10px;
+        .details > p{
             font-size: 25px;
+            background-color: #D3D3D3;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 700px;
+            border-radius: 15px;
+        }
+        .back-link {
+            text-decoration: none;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 20px;
+            border-radius: 15px;
+            font-size: 25px;
+            background-color: #87CEEB;
+            border: 2px solid #4169E1;
         }
         .h1{
-            margin : 10px;
+            margin-top: 0px;
             font-size: 40px;
             
         }
-
+        .btn {
+            background-color: #000000;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ffffff;
+        }
+        .comments {
+            list-style: none;
+            padding: 10px;
+        }
+        .comments > li {
+            padding: 5px;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 5px;
+            padding-right: 30px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +126,30 @@
             @endsession
         </div>
 
-        
+        </div>
+        <div>
+            @if(Auth::check())
+             <h2>Оставьте отзыв:</h2>
+             <form action="{{ route('comments.share' , ['id' => $id])}}" method="POST">
+                @csrf
+                <input type="text" name="body" required><br>
+                <button type="subbmit" class="btn">Отправить</button>
+    </form>
+    @else
+    <p>Чтобы оставить отзыв, нужно зарегистрироваться или войти</p>
+    @endif
+    <h2>Отзывы:</h2>
+    @if($comments->isEmpty())
+    <p>Отзывов пока что нет</p>
+    @else
+    <ul class="comments">
+        @foreach($comments as $comment)
+        <li>{{$comment->author}} {{$comment->created_at}}:<br>{{$comment->body}}</li>
+        @endforeach
+    </ul>
+    @endif
+    </div>
+    </div>
     </div>
 </body>
 </html>

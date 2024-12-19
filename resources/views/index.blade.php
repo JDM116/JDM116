@@ -299,7 +299,7 @@
     <section class="whells">
         @foreach($wheels as $item)
             <div class="wheel">
-                <a href="{{ route('tunings.more', ['id' => $item->id]) }}">
+                <a href="{{ route('tunings.more', $item->id) }}">
                     <img src='{{ $item->image }}' alt="{{ $item->title }}">
                 </a>
                 <div>

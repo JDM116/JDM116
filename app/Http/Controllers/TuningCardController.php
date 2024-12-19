@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\TuningCardModel;
 use App\Models\User;
+use App\Models\comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class TuningCardController extends Controller
 {
@@ -108,7 +110,8 @@ public function search(Request $request)
         public function more($id)
     {
         $tuning = TuningCardModel::findOrFail($id);
-        return view('show', compact('tuning'));
+        $comments = comment::where('card_id', $id)->get();
+        return view('show', compact('tuning','comments',"id"));
     }
 
         public function profile(){
@@ -118,6 +121,19 @@ public function search(Request $request)
             return view('profile', compact('favorite'), compact('user'));
 
         }
-   
 
+        public function share(Request $request, $id)
+        {
+            $request->validate([
+                'body' => 'required|min:4',
+            ]);
+        
+            Comment::create([
+                'card_id' => $id,
+                'author' => Auth::user()->name,
+                'body' => $request->body,
+            ]);
+        
+            return redirect()->route('tunings.more', $id);
+        }
 }

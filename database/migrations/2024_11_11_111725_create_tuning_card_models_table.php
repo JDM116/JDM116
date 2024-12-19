@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('image');
             $table->string('description');
             $table->string('type');
-            $table->boolean('status')->default('false');
-            $table->boolean('favorite')->default('false');
+            $table->boolean('status')->default(false);
+            $table->boolean('favorite')->default(false);
             $table->integer('amount');
-            $table->boolean('deleted')->default('false');
+            $table->boolean('deleted')->default(false);
             $table->integer('cost');
             $table->timestamps();
         });

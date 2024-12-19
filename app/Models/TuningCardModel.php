@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class TuningCardModel extends Model
 {
     protected $fillable = ['title', 'description', 'cost','amount', 'image','type', 'favorite' ];
+
+    public function comment()
+{
+    return $this->hasMany(comment::class);
+}
 }

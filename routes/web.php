@@ -6,6 +6,7 @@ use App\Http\Controllers\RegController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentsController;
 
 
 Route::get('/map', [MapController::class, 'show']);
@@ -18,9 +19,10 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 Route::get("/", [TuningCardController::class, "wheels"])->name("wheels");
 Route::get("/tunings", [TuningCardController::class, "index"])->name("tunings.index");
-Route::get("/tunings/{id}", [TuningCardController::class, "more"])->name("tunings.more");
+Route::get("/tunings/{id}", [TuningCardController::class, "more"])->name('tunings.more');
+Route::post("/tunings/{id}", [TuningCardController::class, "share"])->name('comments.share');
 
-    Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get("/admin", [TuningCardController::class, "show"])->name('admin.dashboard');
     Route::post("/admin/add", [TuningCardController::class, "create"])->name("tunings.add");
     Route::post('/admin/remove', [TuningCardController::class, 'remove'])->name('admin.remove');
@@ -36,4 +38,4 @@ Route::get('/login', [TuningCardController::class, "wheels"]);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/profile', [TuningCardController::class, 'profile'])->name('profile');
-
+Route::get('/tunings/{id}/com', [TuningCardController::class, 'view'])->name('idnex');
